@@ -1,0 +1,26 @@
+name: 주식 자동 분석
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-stock-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v3
+
+      - name: Python 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 주식 분석 실행
+        run: python stock_analysis.py
+
